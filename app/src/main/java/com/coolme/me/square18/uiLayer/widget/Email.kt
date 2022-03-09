@@ -11,6 +11,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.LeftButton
 import com.coolme.me.square18.uiLayer.component.RightButton
@@ -20,8 +22,26 @@ import com.coolme.me.square18.uiLayer.theme.*
 
 @Composable
 fun Email(
+    registrationVM: RegistrationVM = viewModel(),
+    xOffset: Dp,
+    onEmailNext: () -> Unit,
+    onBack: () -> Unit,
+            )
+{
+    Email(
+        email = registrationVM.uiState.email,
+        onEmailChange = {registrationVM.onEmailChange(newEmail = it)},
+        hasError= registrationVM.uiState.emailHasError,
+        xOffset = xOffset,
+        onNext = { onClickNext(registrationVM,onEmailNext) },
+        onBack= onBack,
+            )
+}
+
+@Composable
+fun Email(
     email: String,
-    onEmailChange: (email: String) -> Unit,
+    onEmailChange: (String) -> Unit,
     hasError: Boolean = false,
     xOffset: Dp,
     onNext: () -> Unit,
@@ -75,3 +95,20 @@ fun Email(
         }
     }
 }
+
+
+//*****************************************
+
+private fun onClickNext(
+    registrationVM: RegistrationVM,
+    onEmailNext: () -> Unit
+                       )
+{
+    registrationVM.validateEmail()
+    if (!registrationVM.uiState.emailHasError)
+    {
+        onEmailNext()
+    }
+}
+
+//*****************************************

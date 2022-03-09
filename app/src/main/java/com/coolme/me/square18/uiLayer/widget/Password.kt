@@ -12,6 +12,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.LeftButton
 import com.coolme.me.square18.uiLayer.component.RightButton
@@ -21,10 +23,30 @@ import com.coolme.me.square18.uiLayer.theme.*
 
 @Composable
 fun Password(
+    registrationVM: RegistrationVM = viewModel(),
+    xOffset: Dp,
+    onPasswordNext: () -> Unit,
+    onBack: () -> Unit,
+            )
+{
+    Password(
+        password1 = registrationVM.uiState.password1,
+        onPassword1Change = {registrationVM.onPassword1Change(newPassword = it)},
+        password2 = registrationVM.uiState.password2,
+        onPassword2Change = {registrationVM.onPassword2Change(newPassword = it)},
+        hasError= registrationVM.uiState.passwordHasError,
+        xOffset = xOffset,
+        onNext = { onClickNext(registrationVM,onPasswordNext) },
+        onBack = onBack,
+            )
+}
+
+@Composable
+fun Password(
     password1: String,
-    onPassword1Change: (password1: String) -> Unit,
+    onPassword1Change: (String) -> Unit,
     password2: String,
-    onPassword2Change: (password2: String) -> Unit,
+    onPassword2Change: (String) -> Unit,
     hasError: Boolean = false,
     xOffset: Dp,
     onNext: () -> Unit,
@@ -99,3 +121,20 @@ fun Password(
         }
     }
 }
+
+
+//*****************************************
+
+private fun onClickNext(
+    registrationVM: RegistrationVM,
+    onPasswordNext: () -> Unit
+                       )
+{
+    registrationVM.validatePassword()
+    if (!registrationVM.uiState.passwordHasError)
+    {
+        onPasswordNext()
+    }
+}
+
+//*****************************************

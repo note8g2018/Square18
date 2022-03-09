@@ -1,5 +1,8 @@
 package com.coolme.me.square18.uiLayer.screen.registration
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -51,11 +54,18 @@ fun Registration(
     navController: NavController,
     focusRequester: FocusRequester,
     scaffoldState: ScaffoldState,
-    screenWidth : Int = 100,
+    screenWidth : Int,
     onScreenWidthChange: (LayoutCoordinates) -> Unit,
                 )
 {
-    //var screenWidth : Int by remember { mutableStateOf(0) }
+    var xOffsetState : Dp by remember { mutableStateOf(0.dp) }
+    val xOffset : Dp by animateDpAsState(
+        targetValue = xOffsetState,
+        animationSpec = tween(
+            durationMillis = 2000,
+            easing = LinearEasing,
+                             ),
+                                        )
 
     Scaffold(
         modifier = Modifier
@@ -79,69 +89,19 @@ fun Registration(
            )
         {
             Username(
-                username = registrationVM.uiState.username,
-                onUsernameChange = {registrationVM.onUsernameChange(
-                    registrationVM.uiState.username
-                                                                   )},
-                hasError = registrationVM.uiState.usernameHasError,
-                xOffset = 0.dp,
-                onNext = {}
+                xOffset = xOffset,
+                onUsernameNext = {xOffsetState = Dp(-0.35f * screenWidth.toFloat())},
                     )
             Email(
-                email = registrationVM.uiState.email,
-                onEmailChange = {registrationVM.uiState.onEmailChange(
-                    registrationVM.uiState.email
-                                                                     )},
-                hasError = registrationVM.uiState.emailHasError,
-                xOffset = 100.dp + Dp(screenWidth.toFloat()),
-                onNext = { /*TODO*/ },
-                onBack = {},
+                xOffset = xOffset + Dp(0.35f * screenWidth.toFloat()),
+                onEmailNext = {xOffsetState = Dp(-0.35f * 2 * screenWidth.toFloat())},
+                onBack = { xOffsetState = 0.dp},
                  )
             Password(
-                password1 = registrationVM.uiState.password1,
-                onPassword1Change = { registrationVM.uiState.onPassword1Change(
-                    registrationVM.uiState.password1
-                                                                              )},
-                password2 = registrationVM.uiState.password2,
-                onPassword2Change = { registrationVM.uiState.onPassword2Change(
-                    registrationVM.uiState.password2
-                                                                              )},
-                hasError = registrationVM.uiState.passwordHasError,
-                xOffset = 200.dp,
-                onNext = { /*TODO*/ },
-                onBack = {},
+                xOffset = xOffset + Dp(0.35f * 2 * screenWidth.toFloat()),
+                onPasswordNext = { /* TODO */ },
+                onBack = {xOffsetState = Dp(-0.35f * screenWidth.toFloat())},
                     )
-//            Email(
-//                registerVM = registerVM,
-//                onNext = {
-//                    xOffsetState = Dp(-0.35f * screenWidth.toFloat())
-//                },
-//                xOffset = xOffset,
-//                 )
-//            Password(
-//                registerVM = registerVM,
-//                screenWidth = screenWidth,
-//                onBack = {
-//                    xOffsetState = 0.dp // Dp(0.35f * screenWidth.toFloat())
-//                },
-//                onNext = {
-//                    xOffsetState = Dp(-0.35f * 2.0f * screenWidth.toFloat())
-//                },
-//                xOffset = xOffset,
-//                    )
-//            Username(
-//                registerVM = registerVM,
-//                screenWidth = screenWidth,
-//                onBack = {
-//                    xOffsetState = Dp(-0.35f * screenWidth.toFloat())
-//                },
-//                onNext = {
-//
-//                },
-//                xOffset = xOffset,
-//                                 )
-
-
         }
     }
 }

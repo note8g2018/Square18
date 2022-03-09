@@ -9,9 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.RightButton
 import com.coolme.me.square18.uiLayer.component.TextFieldSho
@@ -20,8 +21,24 @@ import com.coolme.me.square18.uiLayer.theme.*
 
 @Composable
 fun Username(
+    registrationVM: RegistrationVM = viewModel(),
+    xOffset: Dp,
+    onUsernameNext: () -> Unit,
+            )
+{
+    Username(
+        username = registrationVM.uiState.username,
+        onUsernameChange = {registrationVM.onUsernameChange(newUsername = it)},
+        hasError= registrationVM.uiState.usernameHasError,
+        xOffset = xOffset,
+        onNext = { onClickNext(registrationVM,onUsernameNext) },
+            )
+}
+
+@Composable
+fun Username(
     username: String,
-    onUsernameChange: (username: String) -> Unit,
+    onUsernameChange: (String) -> Unit,
     hasError: Boolean = false,
     xOffset: Dp,
     onNext: () -> Unit,
@@ -76,13 +93,19 @@ fun Username(
 }
 
 
-//***************************************
-//***************************************
+//*****************************************
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview()
+private fun onClickNext(
+    registrationVM: RegistrationVM,
+    onUsernameNext: () -> Unit
+                       )
 {
-    Username(username = "AAAA", onUsernameChange = {}, xOffset = 0.dp){}
+    registrationVM.validateUsername()
+    if (!registrationVM.uiState.usernameHasError)
+    {
+        onUsernameNext()
+    }
 }
+
+//*****************************************
 
