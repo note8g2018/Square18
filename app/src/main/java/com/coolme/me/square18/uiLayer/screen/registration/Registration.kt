@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.SnackbarHostSho
@@ -50,7 +50,7 @@ fun Registration(
 
 @Composable
 fun Registration(
-    registrationVM: RegistrationVM = viewModel(),
+    registrationVM: RegistrationVM = hiltViewModel<RegistrationVM>(),
     navController: NavController,
     focusRequester: FocusRequester,
     scaffoldState: ScaffoldState,
@@ -69,13 +69,13 @@ fun Registration(
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .focusRequester(focusRequester)
-            .focusTarget()
-            .pointerInput(Unit) { detectTapGestures { focusRequester.requestFocus() } }
-            .onGloballyPositioned {
-                onScreenWidthChange(it)
-            },
+                .fillMaxSize()
+                .focusRequester(focusRequester)
+                .focusTarget()
+                .pointerInput(Unit) { detectTapGestures { focusRequester.requestFocus() } }
+                .onGloballyPositioned {
+                    onScreenWidthChange(it)
+                },
         scaffoldState = scaffoldState,
         snackbarHost = {
             SnackbarHostSho(hostState = scaffoldState.snackbarHostState)
@@ -84,22 +84,25 @@ fun Registration(
             )
     {
         Box( modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
            )
         {
             Username(
+                registrationVM= registrationVM,
                 xOffset = xOffset,
                 onUsernameNext = {xOffsetState = Dp(-0.35f * screenWidth.toFloat())},
                     )
             Email(
+                registrationVM= registrationVM,
                 xOffset = xOffset + Dp(0.35f * screenWidth.toFloat()),
                 onEmailNext = {xOffsetState = Dp(-0.35f * 2 * screenWidth.toFloat())},
                 onBack = { xOffsetState = 0.dp},
                  )
             Password(
+                registrationVM= registrationVM,
                 xOffset = xOffset + Dp(0.35f * 2 * screenWidth.toFloat()),
-                onPasswordNext = { /* TODO */ },
+
                 onBack = {xOffsetState = Dp(-0.35f * screenWidth.toFloat())},
                     )
         }

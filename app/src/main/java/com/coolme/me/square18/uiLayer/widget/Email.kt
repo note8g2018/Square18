@@ -11,7 +11,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.LeftButton
@@ -22,7 +21,7 @@ import com.coolme.me.square18.uiLayer.theme.*
 
 @Composable
 fun Email(
-    registrationVM: RegistrationVM = viewModel(),
+    registrationVM: RegistrationVM,
     xOffset: Dp,
     onEmailNext: () -> Unit,
     onBack: () -> Unit,

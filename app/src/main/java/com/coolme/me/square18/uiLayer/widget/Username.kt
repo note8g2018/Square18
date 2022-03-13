@@ -11,7 +11,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.RightButton
@@ -21,7 +20,7 @@ import com.coolme.me.square18.uiLayer.theme.*
 
 @Composable
 fun Username(
-    registrationVM: RegistrationVM = viewModel(),
+    registrationVM: RegistrationVM,
     xOffset: Dp,
     onUsernameNext: () -> Unit,
             )
@@ -47,7 +46,6 @@ fun Username(
     Box(
         modifier = Modifier
             .offset(
-                //x = xOffset + Dp(0.35f * 2 * screenWidth.toFloat()),
                 x = xOffset,
                 y = 0.dp
                    )
