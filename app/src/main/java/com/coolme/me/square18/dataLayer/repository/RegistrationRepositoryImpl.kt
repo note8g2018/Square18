@@ -1,7 +1,7 @@
 package com.coolme.me.square18.dataLayer.repository
 
-import com.coolme.me.square18.dataLayer.fuckInterface.RegistrationNetwork
-import com.coolme.me.square18.dataLayer.fuckInterface.RegistrationRepository
+import com.coolme.me.square18.dataLayer.userInterface.RegistrationNetwork
+import com.coolme.me.square18.dataLayer.userInterface.RegistrationRepository
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.dataLayer.model.User
 import com.coolme.me.square18.domainLayer.registration.RegistrationUiState

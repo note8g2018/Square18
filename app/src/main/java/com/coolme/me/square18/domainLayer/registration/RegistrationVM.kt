@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coolme.me.square18.dataLayer.fuckInterface.RegistrationRepository
+import com.coolme.me.square18.dataLayer.userInterface.RegistrationRepository
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.domainLayer.validation.isEmailValid
 import com.coolme.me.square18.domainLayer.validation.isPasswordValid

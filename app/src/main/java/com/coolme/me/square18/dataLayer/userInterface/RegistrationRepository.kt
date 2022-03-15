@@ -1,4 +1,4 @@
-package com.coolme.me.square18.dataLayer.fuckInterface
+package com.coolme.me.square18.dataLayer.userInterface
 
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.dataLayer.model.User

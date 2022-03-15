@@ -1,11 +1,10 @@
 package com.coolme.me.square18.dataLayer.network
 
-import com.coolme.me.square18.dataLayer.di.KtorClient
-import com.coolme.me.square18.dataLayer.fuckInterface.RegistrationNetwork
 import com.coolme.me.square18.dataLayer.model.ErrorSho
 import com.coolme.me.square18.dataLayer.model.ResponseSho
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.dataLayer.model.User
+import com.coolme.me.square18.dataLayer.userInterface.RegistrationNetwork
 import com.coolme.me.square18.domainLayer.registration.RegistrationUiState
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.Flow

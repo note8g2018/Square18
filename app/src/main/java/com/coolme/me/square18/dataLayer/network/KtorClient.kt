@@ -1,4 +1,4 @@
-package com.coolme.me.square18.dataLayer.di
+package com.coolme.me.square18.dataLayer.network
 
 import android.util.Log
 import com.coolme.me.square18.baseURLSho
