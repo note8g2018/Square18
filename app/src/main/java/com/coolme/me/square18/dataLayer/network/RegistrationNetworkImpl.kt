@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class RegistrationNetworkImpl @Inject constructor(
-    //private val httpClient : HttpClient,
-                                                 ) : RegistrationNetwork
+class RegistrationNetworkImpl @Inject constructor() : RegistrationNetwork
 {
     override suspend fun registerUser(registrationUiState: RegistrationUiState)
     : Flow<ResultSho<User>>
