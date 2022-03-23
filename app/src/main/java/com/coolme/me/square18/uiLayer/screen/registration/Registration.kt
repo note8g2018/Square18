@@ -5,7 +5,9 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
@@ -25,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.SnackbarHostSho
+import com.coolme.me.square18.uiLayer.widget.CircleProgressIndicator
 import com.coolme.me.square18.uiLayer.widget.Email
 import com.coolme.me.square18.uiLayer.widget.Password
 import com.coolme.me.square18.uiLayer.widget.Username
@@ -84,10 +87,13 @@ fun Registration(
             )
     {
         Box( modifier = Modifier
-                .fillMaxSize()
+                //.fillMaxSize()
+                .fillMaxHeight()
+                .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
            )
         {
+
             Username(
                 registrationVM= registrationVM,
                 xOffset = xOffset,
@@ -103,8 +109,19 @@ fun Registration(
                 registrationVM= registrationVM,
                 xOffset = xOffset + Dp(0.35f * 2 * screenWidth.toFloat()),
 
-                onBack = {xOffsetState = Dp(-0.35f * screenWidth.toFloat())},
+                onBack = {
+                    xOffsetState = Dp(-0.35f * screenWidth.toFloat())
+                    registrationVM.onBackFromPassword()
+                         },
+                onPasswordNext = {
+                    registrationVM.send(scaffoldState)
+                },
                     )
+
+            if(registrationVM.uiState.progressing)
+            {
+                CircleProgressIndicator()
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ import com.coolme.me.square18.uiLayer.theme.*
 fun Password(
     registrationVM: RegistrationVM,
     xOffset: Dp,
-    //onPasswordNext: () -> Unit,
+    onPasswordNext: () -> Unit,
     onBack: () -> Unit,
             )
 {
@@ -35,7 +35,7 @@ fun Password(
         onPassword2Change = {registrationVM.onPassword2Change(newPassword = it)},
         hasError= registrationVM.uiState.passwordHasError,
         xOffset = xOffset,
-        onNext = { onClickNext(registrationVM) },
+        onNext = { onClickNext(registrationVM, onPasswordNext) },
         onBack = onBack,
             )
 }
@@ -126,14 +126,13 @@ fun Password(
 
 private fun onClickNext(
     registrationVM: RegistrationVM,
-    //onPasswordNext: () -> Unit
+    onPasswordNext: () -> Unit
                                )
 {
     registrationVM.validatePassword()
     if (!registrationVM.uiState.passwordHasError)
     {
-        registrationVM.send()
-        //onPasswordNext()
+        onPasswordNext()
     }
 }
 

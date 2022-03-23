@@ -42,3 +42,6 @@ val StyleRole : TextStyle = TextStyle(
 val StyleOutlinedButton : TextStyle = TextStyle(
     fontSize = OutlinedButton,
                                                )
+val SnackBarContentText: TextStyle = TextStyle(
+    fontSize = InputTextField,
+                               )

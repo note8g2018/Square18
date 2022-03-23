@@ -28,9 +28,9 @@ class KtorClient()
             })
         }
         install(HttpTimeout) {
-            this.socketTimeoutMillis = 40000L
-            this.requestTimeoutMillis = 40000L
-            this.connectTimeoutMillis = 40000L
+            this.socketTimeoutMillis = 15000L
+            this.requestTimeoutMillis = 15000L
+            this.connectTimeoutMillis = 15000L
         }
         install(Logging){
             this.logger = object : Logger

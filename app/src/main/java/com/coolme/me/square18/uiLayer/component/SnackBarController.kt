@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class SnackBarController(
     private val coroutineScope: CoroutineScope,
-    private val scaffoldState: ScaffoldState,
+    //private val scaffoldState: ScaffoldState,
                         )
 {
     private var snackBarJob: Job? = null
@@ -43,7 +43,8 @@ class SnackBarController(
             snackBarJob = coroutineScope.launch {
                 scaffoldState.snackbarHostState.showSnackbar(
                     message = message,
-                    actionLabel = actionLabel
+                    actionLabel = actionLabel,
+                    duration = duration,
                                                             )
                 cancelActiveJob()
             }
