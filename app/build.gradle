@@ -1,16 +1,17 @@
+
+
 plugins {
     id 'com.android.application'
-    //id 'kotlin-android'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'kotlin-kapt'    // need it for Realm SDK Database + Hilt
+    //id 'org.jetbrains.kotlin.android.extensions'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10'
+    id 'io.realm.kotlin' // need it for Realm SDK Database
 
-    id 'kotlin-kapt'    // need it for Realm SDK Database
     id 'dagger.hilt.android.plugin' // For Hilt
-    //id 'realm-android'  // need it for Realm SDK Database
-    //id 'io.realm.kotlin' version "0.10.0"
-    //id 'org.jetbrains.kotlin.jvm' version '1.6.10'
-    //id 'org.jetbrains.kotlin.plugin.serialization'
 }
+
+
 
 android {
     namespace 'com.coolme.me.square18'
@@ -33,6 +34,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.debug
         }
     }
     compileOptions {
@@ -40,7 +42,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11" // JavaVersion.VERSION_11
+        jvmTarget = '11' //JavaVersion.VERSION_11
         //useIR = true
     }
 //    java {
@@ -48,14 +50,15 @@ android {
 //    }
     buildFeatures {
         compose true
-        //viewBinding = true
+        //viewBinding true
         //dataBinding = true
     }
 //    dataBinding {
 //        enabled = true
 //    }
+
     composeOptions {
-        kotlinCompilerExtensionVersion compose_ui_version //'1.1.0-rc02'
+        kotlinCompilerExtensionVersion compose_ui_version // '1.1.0-rc02'
     }
     packagingOptions {
         resources {
@@ -63,10 +66,18 @@ android {
         }
     }
     ndkVersion '25.0.8221429 rc2'
-    buildToolsVersion '33.0.0 rc2'
+    buildToolsVersion '32.1.0 rc1'
 }
 
+//realm {
+//    syncEnabled = true
+//}
+
 dependencies {
+
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
+    //implementation 'androidx.appcompat:appcompat:1.6.0-alpha01'
 
     implementation 'androidx.core:core-ktx:1.9.0-alpha01'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha04'
@@ -125,8 +136,9 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     // For Realm SDK
-    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt'
-    //implementation 'io.realm.kotlin:library-base:0.10.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation 'io.realm.kotlin:library-base:0.10.1'
+
 
 
 }

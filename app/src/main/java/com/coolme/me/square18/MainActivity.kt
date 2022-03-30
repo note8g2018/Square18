@@ -14,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity()
 {
+    //@Inject lateinit var userRealm : Realm
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,13 @@ class MainActivity : ComponentActivity()
                 Navigation()
             }
         }
+    }
+
+    override fun onDestroy()
+    {
+        //Realm.compactRealm(userRealm.configuration)
+        //userRealm.close()
+        super.onDestroy()
     }
 }
 
