@@ -2,6 +2,7 @@ package com.coolme.me.square18.dataLayer.model
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import kotlinx.datetime.toInstant
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -19,4 +20,21 @@ class UserRealm : RealmObject
     var lastTimeLoginUTC : String = ""
     var createdAt : String = ""
     var updatedAt: String = ""
+
+    fun toUser() : User
+    {
+        return User(
+            token= token,
+            _id= _id,
+            username= username,
+            email=email,
+            idNumber=idNumber,
+            ip= ip,
+            disabled= disabled,
+            isLogin= isLogin,
+            lastTimeLoginUTC= lastTimeLoginUTC.toInstant(),
+            createdAt= createdAt.toInstant(),
+            updatedAt= updatedAt.toInstant(),
+                   )
+    }
 }

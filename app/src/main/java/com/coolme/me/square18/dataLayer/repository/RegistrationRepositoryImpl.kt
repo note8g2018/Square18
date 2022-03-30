@@ -47,9 +47,11 @@ class RegistrationRepositoryImpl @Inject constructor(
                             user3 = getUserRealm("qwert123")
                         }
                         job.join()
-                        println(user3?.username)
-                        println(user3?.email)
-                        println(user3)
+                        val user5:User = user3?.toUser()!!
+                        println(user5.username)
+                        println(user5.email)
+                        //println(user5.toString())
+                        //println(user5)
                         emit(value)
                     }
                 }
