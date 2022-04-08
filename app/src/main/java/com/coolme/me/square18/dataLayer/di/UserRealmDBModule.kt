@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object UserRealmModule
+object UserRealmDBModule
 {
     @Singleton
     @Provides
@@ -19,7 +19,8 @@ object UserRealmModule
     {
         val config = RealmConfiguration
                 .Builder(schema = setOf(UserRealm::class))
-                .name("userRealm")
+                .name("userRealmDB")
+                .compactOnLaunch()
                 .build()
         return Realm.open(config)
     }

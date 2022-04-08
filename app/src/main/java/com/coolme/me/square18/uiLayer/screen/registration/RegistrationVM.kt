@@ -1,4 +1,4 @@
-package com.coolme.me.square18.domainLayer.registration
+package com.coolme.me.square18.uiLayer.screen.registration
 
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarDuration
@@ -7,7 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.coolme.me.square18.dataLayer.model.ResultSho
+import com.coolme.me.square18.dataLayer.model.Screen
 import com.coolme.me.square18.dataLayer.userInterface.RegistrationRepository
 import com.coolme.me.square18.domainLayer.validation.isEmailValid
 import com.coolme.me.square18.domainLayer.validation.isPasswordValid
@@ -75,7 +77,7 @@ class RegistrationVM @Inject constructor(
         onProgressing(false)
     }
 
-    fun send(scaffoldState : ScaffoldState,)
+    fun send(scaffoldState : ScaffoldState, navController: NavController)
     {
         viewModelScope.launch {
             withContext(Dispatchers.IO){
@@ -97,6 +99,8 @@ class RegistrationVM @Inject constructor(
                                 {
                                     onProgressing(false)
                                     println("Success")
+                                    navController.backQueue.clear()
+                                    navController.navigate(Screen.Wall.route)
                                 }
                                 is ResultSho.Failure     ->
                                 {

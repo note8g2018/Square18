@@ -5,7 +5,7 @@ import com.coolme.me.square18.dataLayer.model.ResponseSho
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.dataLayer.model.User
 import com.coolme.me.square18.dataLayer.userInterface.RegistrationNetwork
-import com.coolme.me.square18.domainLayer.registration.RegistrationUiState
+import com.coolme.me.square18.uiLayer.screen.registration.RegistrationUiState
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,8 +16,8 @@ class RegistrationNetworkImpl @Inject constructor() : RegistrationNetwork
     override suspend fun registerUser(registrationUiState: RegistrationUiState)
     : Flow<ResultSho<User>>
     {
-        val ktorClient : KtorClient = KtorClient()
-        return flow<ResultSho<User>> {
+        val ktorClient = KtorClient()
+        return flow {
             println("Flow")
             emit(ResultSho.Progressing)
             try
@@ -25,7 +25,7 @@ class RegistrationNetworkImpl @Inject constructor() : RegistrationNetwork
                 val responseSho: ResponseSho<User> = ktorClient.httpClient.use {
                     it.post {
                             this.url {
-                                this.path("register")// = "register"
+                                this.path("register")
                             }
                             this.body =
                                 registrationUiState.toJson()

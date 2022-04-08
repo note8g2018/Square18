@@ -1,4 +1,4 @@
-package com.coolme.me.square18.uiLayer.widget
+package com.coolme.me.square18.uiLayer.widget.registration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,7 +11,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.coolme.me.square18.domainLayer.registration.RegistrationVM
+import com.coolme.me.square18.uiLayer.screen.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.RightButton
 import com.coolme.me.square18.uiLayer.component.TextFieldSho

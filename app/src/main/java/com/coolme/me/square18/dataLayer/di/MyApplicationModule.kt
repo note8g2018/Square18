@@ -1,9 +1,11 @@
 package com.coolme.me.square18.dataLayer.di
 
+import com.coolme.me.square18.dataLayer.localDatabase.LocalDatabaseImpl
+import com.coolme.me.square18.dataLayer.network.LoginNetworkImpl
 import com.coolme.me.square18.dataLayer.network.RegistrationNetworkImpl
+import com.coolme.me.square18.dataLayer.repository.LoginRepositoryImpl
 import com.coolme.me.square18.dataLayer.repository.RegistrationRepositoryImpl
-import com.coolme.me.square18.dataLayer.userInterface.RegistrationNetwork
-import com.coolme.me.square18.dataLayer.userInterface.RegistrationRepository
+import com.coolme.me.square18.dataLayer.userInterface.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +16,11 @@ import dagger.hilt.components.SingletonComponent
 abstract class MyApplicationModule
 {
     @Binds
+    abstract fun bindLocalDatabase(
+        localDatabaseImpl: LocalDatabaseImpl
+                                           ): LocalDatabase
+
+    @Binds
     abstract fun bindRegistrationRepository(
         registrationRepositoryImpl: RegistrationRepositoryImpl
                                            ): RegistrationRepository
@@ -22,5 +29,15 @@ abstract class MyApplicationModule
     abstract fun bindRegistrationNetwork(
         registrationNetworkImpl: RegistrationNetworkImpl
                                            ): RegistrationNetwork
+
+    @Binds
+    abstract fun bindLoginRepository(
+        loginRepositoryImpl: LoginRepositoryImpl
+                                           ): LoginRepository
+
+    @Binds
+    abstract fun bindLoginNetwork(
+        loginNetworkImpl: LoginNetworkImpl
+                                        ): LoginNetwork
 
 }

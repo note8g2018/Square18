@@ -5,9 +5,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
@@ -25,12 +23,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.coolme.me.square18.domainLayer.registration.RegistrationVM
 import com.coolme.me.square18.uiLayer.component.SnackbarHostSho
 import com.coolme.me.square18.uiLayer.widget.CircleProgressIndicator
 import com.coolme.me.square18.uiLayer.widget.Email
-import com.coolme.me.square18.uiLayer.widget.Password
-import com.coolme.me.square18.uiLayer.widget.Username
+import com.coolme.me.square18.uiLayer.widget.registration.Password
+import com.coolme.me.square18.uiLayer.widget.registration.Username
 
 @Composable
 fun Registration(
@@ -53,7 +50,7 @@ fun Registration(
 
 @Composable
 fun Registration(
-    registrationVM: RegistrationVM = hiltViewModel<RegistrationVM>(),
+    registrationVM: RegistrationVM = hiltViewModel(),
     navController: NavController,
     focusRequester: FocusRequester,
     scaffoldState: ScaffoldState,
@@ -69,7 +66,6 @@ fun Registration(
             easing = LinearEasing,
                              ),
                                         )
-
     Scaffold(
         modifier = Modifier
                 .fillMaxSize()
@@ -87,9 +83,7 @@ fun Registration(
             )
     {
         Box( modifier = Modifier
-                //.fillMaxSize()
-                .fillMaxHeight()
-                .fillMaxWidth()
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
            )
         {
@@ -114,7 +108,7 @@ fun Registration(
                     registrationVM.onBackFromPassword()
                          },
                 onPasswordNext = {
-                    registrationVM.send(scaffoldState)
+                    registrationVM.send(scaffoldState, navController)
                 },
                     )
 

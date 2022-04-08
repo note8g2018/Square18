@@ -11,7 +11,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.coolme.me.square18.R
 import com.coolme.me.square18.dataLayer.userInterface.RegistrationNetwork
-import com.coolme.me.square18.domainLayer.registration.RegistrationUiState
+import com.coolme.me.square18.uiLayer.screen.registration.RegistrationUiState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers

@@ -2,7 +2,7 @@ package com.coolme.me.square18.dataLayer.userInterface
 
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.dataLayer.model.User
-import com.coolme.me.square18.domainLayer.registration.RegistrationUiState
+import com.coolme.me.square18.uiLayer.screen.registration.RegistrationUiState
 import kotlinx.coroutines.flow.Flow
 
 interface RegistrationNetwork : NetworkSho

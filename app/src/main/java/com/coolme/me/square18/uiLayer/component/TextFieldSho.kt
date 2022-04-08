@@ -6,12 +6,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import com.coolme.me.square18.uiLayer.theme.InputText
 import com.coolme.me.square18.uiLayer.theme.LabelText
 import com.coolme.me.square18.uiLayer.theme.outlinedTextFieldColors
@@ -24,9 +25,9 @@ fun TextFieldSho(
     label: String,
     icon: ImageVector,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardType: KeyboardType,
-    imeAction: ImeAction,
-    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
                 )
 {
     OutlinedTextField(

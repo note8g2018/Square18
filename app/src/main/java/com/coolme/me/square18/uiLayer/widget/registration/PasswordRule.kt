@@ -1,4 +1,4 @@
-package com.coolme.me.square18.uiLayer.widget
+package com.coolme.me.square18.uiLayer.widget.registration
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import com.coolme.me.square18.uiLayer.theme.StyleRole
 
 @Composable
-fun UsernameRule()
+fun PasswordRule()
 {
     Row()
     {
@@ -26,19 +26,8 @@ fun UsernameRule()
             style = StyleRole,
             )
         Text(
-            text = "The first 5 characters must be from [a, z]",
-            style = StyleRole,
-            )
-    }
-
-    Row()
-    {
-        Text(
-            text = "3. ",
-            style = StyleRole,
-            )
-        Text(
-            text = "The rest characters must be from [a, z] or [0, 9]",
+            text = "Must be from [a, z] or [A, Z] or [0, 9] or " +
+                    "[ ! @ # $ % ^ & * ( ) - _ = + ]",
             style = StyleRole,
             )
     }
