@@ -1,4 +1,4 @@
-package com.coolme.me.square18.uiLayer.screen.login
+package com.coolme.me.square18.uiLayer.screen.resetPassword
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -19,39 +19,34 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.coolme.me.square18.dataLayer.model.Screen
+import com.coolme.me.square18.uiLayer.component.ErrorText
 import com.coolme.me.square18.uiLayer.component.SnackbarHostSho
 import com.coolme.me.square18.uiLayer.modifierExtention.shadowWithColor
 import com.coolme.me.square18.uiLayer.theme.*
 import com.coolme.me.square18.uiLayer.widget.CircleProgressIndicator
-import com.coolme.me.square18.uiLayer.widget.login.PasswordForLogin
-import com.coolme.me.square18.uiLayer.widget.login.UsernameForLogin
+import com.coolme.me.square18.uiLayer.widget.resetPassword.PasswordForResetPassword
+import com.coolme.me.square18.uiLayer.widget.resetPassword.ResetCodeForResetPassword
+import com.coolme.me.square18.uiLayer.widget.resetPassword.UsernameForResetPassword
 
 @Composable
-fun Login(
-    navController: NavController,
-                )
+fun ResetPassword(navController: NavController)
 {
     val focusRequester by remember { mutableStateOf(FocusRequester()) }
 
-    Login(
+    ResetPassword(
         navController = navController,
         focusRequester = focusRequester,
         scaffoldState = rememberScaffoldState(),
-        onRegistration = { navController.navigate(Screen.Registration.route) },
-        onForgetPassword = {navController.navigate(Screen.ForgetPassword.route)},
-         )
+                  )
 }
 
 @Composable
-fun Login(
-    vM: LoginVM = hiltViewModel(),
+fun ResetPassword(
+    vM: ResetPasswordVM = hiltViewModel(),
     navController: NavController,
     focusRequester: FocusRequester,
     scaffoldState: ScaffoldState,
-    onRegistration: ()-> Unit,
-    onForgetPassword: ()-> Unit,
-         )
+                  )
 {
     Scaffold(
         modifier = Modifier
@@ -62,7 +57,7 @@ fun Login(
         snackbarHost = {
             SnackbarHostSho(hostState = scaffoldState.snackbarHostState)
         },
-        topBar = { TopBarLogin() },
+        topBar = { TopBarResetPassword(navController) },
             )
     {
         Column(
@@ -90,10 +85,12 @@ fun Login(
                     verticalArrangement = Arrangement.spacedBy(space = SpaceColumnHeight),
                       )
                 {
-                    UsernameForLogin(vM = vM)
-                    PasswordForLogin(vM= vM, onSend = {})
-                    LoginButton(onClick = {vM.login(scaffoldState, navController) })
-                    RegistrationButton(onClick = onRegistration)
+                    UsernameForResetPassword(vM = vM)
+                    ResetCodeForResetPassword(vM = vM)
+                    PasswordForResetPassword(vM = vM, onSend = {})
+                    ErrorText(errorMessage = "This is NOT valid Password",
+                              hasError = vM.uiState.newPasswordHasError)
+                    ResetButton(onClick = {vM.resetPassword(scaffoldState, navController)})
                 }
 
                 if(vM.uiState.progressing)
@@ -101,9 +98,6 @@ fun Login(
                     CircleProgressIndicator()
                 }
             }
-
-            Spacer(modifier = Modifier.weight(weight = 1.0f, fill = true))
-            ForgetPasswordButton(onClick = onForgetPassword)
         }
     }
 }

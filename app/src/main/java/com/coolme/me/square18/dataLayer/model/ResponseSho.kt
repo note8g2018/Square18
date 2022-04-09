@@ -9,4 +9,5 @@ data class ResponseSho<out T>(
     val errorMessage: String? = null,
     val token : String? = null,
     val data : T? = null,
+    val result: String? = null,
                              )

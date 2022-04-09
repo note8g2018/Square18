@@ -1,4 +1,4 @@
-package com.coolme.me.square18.uiLayer.screen.logout
+package com.coolme.me.square18.uiLayer.screen.forgetPassword
 
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarDuration
@@ -10,9 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.coolme.me.square18.dataLayer.model.ResultSho
 import com.coolme.me.square18.dataLayer.model.Screen
-import com.coolme.me.square18.dataLayer.model.User
-import com.coolme.me.square18.dataLayer.userInterface.LocalDatabase
-import com.coolme.me.square18.dataLayer.userInterface.LoginRepository
+import com.coolme.me.square18.dataLayer.userInterface.RegistrationRepository
 import com.coolme.me.square18.uiLayer.component.SnackBarController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,27 +23,29 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LogoutVM @Inject constructor(
-    private val repository: LoginRepository,
-    localDatabase: LocalDatabase,
-                                 ) : ViewModel()
+class ForgetPasswordVM @Inject constructor(
+    private val repository: RegistrationRepository,
+                                          ) : ViewModel()
 {
-    var user by mutableStateOf<User?>(null)
+    var uiState by mutableStateOf(ForgetPasswordUiState())
         private set
-
-    init
-    {
-        user = localDatabase.getUser()
-        println("called init")
-    }
 
     private val snackBarController = SnackBarController(viewModelScope)
 
-    fun logout(scaffoldState : ScaffoldState, navController: NavController)
+    fun onUsernameChange(newUsername: String)
+    {
+        uiState = uiState.copy(username = newUsername)
+    }
+    private fun onProgressing(newProgressing: Boolean)
+    {
+        uiState = uiState.copy(progressing = newProgressing)
+    }
+
+    fun forgetPassword(scaffoldState : ScaffoldState, navController: NavController)
     {
         viewModelScope.launch {
             withContext(Dispatchers.IO){
-                repository.logout(user!!)
+                repository.forgetPassword(uiState)
                         .stateIn(
                             initialValue = ResultSho.Progressing,
                             scope = viewModelScope,
@@ -56,16 +56,27 @@ class LogoutVM @Inject constructor(
                             {
                                 is ResultSho.Progressing ->
                                 {
-                                    println("Progressing")
+                                    onProgressing(true)
                                 }
                                 is ResultSho.Success     ->
                                 {
+                                    onProgressing(false)
                                     println("Success")
-                                    navController.backQueue.clear()
-                                    navController.navigate(Screen.Login.route)
+
+                                    snackBarController.getScope().launch {
+                                        snackBarController.showSnackBar(
+                                            scaffoldState = scaffoldState,
+                                            message = it.data,
+                                            duration = SnackbarDuration.Indefinite,
+                                            actionLabel = "Hide",
+                                                                       )
+                                    }
+                                    //navController.backQueue.clear()
+                                    navController.navigate(Screen.ResetPassword.route)
                                 }
                                 is ResultSho.Failure     ->
                                 {
+                                    onProgressing(false)
                                     println("Failure")
                                     snackBarController.getScope().launch {
                                         snackBarController.showSnackBar(

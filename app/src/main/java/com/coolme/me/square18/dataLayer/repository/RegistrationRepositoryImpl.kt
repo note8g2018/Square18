@@ -5,7 +5,9 @@ import com.coolme.me.square18.dataLayer.model.User
 import com.coolme.me.square18.dataLayer.userInterface.LocalDatabase
 import com.coolme.me.square18.dataLayer.userInterface.RegistrationNetwork
 import com.coolme.me.square18.dataLayer.userInterface.RegistrationRepository
+import com.coolme.me.square18.uiLayer.screen.forgetPassword.ForgetPasswordUiState
 import com.coolme.me.square18.uiLayer.screen.registration.RegistrationUiState
+import com.coolme.me.square18.uiLayer.screen.resetPassword.ResetPasswordUiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -46,5 +48,17 @@ class RegistrationRepositoryImpl @Inject constructor(
                 }
             }
         }
+    }
+
+    override suspend fun forgetPassword(forgetPasswordUiState: ForgetPasswordUiState)
+    : Flow<ResultSho<String>>
+    {
+        return registrationNetwork.forgetPassword(forgetPasswordUiState)
+    }
+
+    override suspend fun resetPassword(resetPasswordUiState: ResetPasswordUiState)
+    : Flow<ResultSho<String>>
+    {
+        return registrationNetwork.resetPassword(resetPasswordUiState)
     }
 }
